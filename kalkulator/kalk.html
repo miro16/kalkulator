@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kalkulator</title>
+  <style>
+    .container {
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #583551;
+      border-radius: 5px;
+    }
+    #input {
+      width: 92%;
+      padding: 10px;
+      margin-bottom: 10px;
+      text-align: right;
+    }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 5px;
+    }
+    .key {
+      padding: 10px;
+      background-color: #d45ecf;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .operator {
+      background-color: #b331b8;
+      color: #f7f7f7;
+    }
+    .output {
+      margin-top: 10px;
+      text-align: right;
+      font-weight: bold;
+    }
+    
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input type="text" id="input" readonly>
+    <div class="keypad">
+      <button class="key" onclick="appendNumber(1)">1</button>
+      <button class="key" onclick="appendNumber(2)">2</button>
+      <button class="key" onclick="appendNumber(3)">3</button>
+      <button class="key operator" onclick="appendOperator('+')">+</button>
+      <button class="key" onclick="appendNumber(4)">4</button>
+      <button class="key" onclick="appendNumber(5)">5</button>
+      <button class="key" onclick="appendNumber(6)">6</button>
+      <button class="key operator" onclick="appendOperator('-')">-</button>
+      <button class="key" onclick="appendNumber(7)">7</button>
+      <button class="key" onclick="appendNumber(8)">8</button>
+      <button class="key" onclick="appendNumber(9)">9</button>
+      <button class="key operator" onclick="appendOperator('*')">*</button>
+      <button class="key" onclick="appendNumber(0)">0</button>
+      <button class="key operator" onclick="clearInput()">C</button>
+      <button class="key operator" onclick="appendOperator('/')">/</button>
+      <button class="key operator" onclick="calculate()">=</button>
+    </div>
+    <div class="output" id="output"></div>
+  </div>
+
+  <script>
+    var inputElement = document.getElementById("input");
+    var outputElement = document.getElementById("output");
+    var numbers = [];
+    var operators = [];
+
+    function appendNumber(number) {
+      inputElement.value += number;
+      numbers.push(number);
+    }
+
+    function appendOperator(operator) {
+      inputElement.value += operator;
+      operators.push(operator);
+    }
+
+    function calculate() {
+      var expression = inputElement.value;
+      var result;
+
+      try {
+        result = eval(expression);
+        outputElement.textContent = "Wynik: " + result;
+      } catch (error) {
+        outputElement.textContent = "Błąd w wyrażeniu.";
+      }
+
+      numbers = [];
+      operators = [];
+    }
+
+    function clearInput() {
+      inputElement.value = "";
+      outputElement.textContent = "";
+      numbers = [];
+      operators = [];
+    }
+  </script>
+</body>
+</html>
